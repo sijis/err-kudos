@@ -81,9 +81,15 @@ class Kudos(BotPlugin):
             Example:
                 !kudos <username>
         '''
+        username = str(args)
 
-        # use either passed username or requester
-        username = str(args) or str(msg.nick)
+        if username == '': 
+            self.send(msg.frm,
+                      'Username is required.',
+                      message_type=msg.type,
+                      in_reply_to=msg,
+                      groupchat_nick_reply=True)
+            return
 
         try:
             count = self.shelf.get(username).get('kudos')
