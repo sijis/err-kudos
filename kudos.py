@@ -74,8 +74,13 @@ class Kudos(BotPlugin):
         for user in self.shelf.keys():
             user_list.append(user)
 
+        if user_list == []:
+            response = 'No users'
+        else:
+            response = ', '.join(user_list)
+
         self.send(msg.frm,
-                  ', '.join(user_list),
+                  response,
                   message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
