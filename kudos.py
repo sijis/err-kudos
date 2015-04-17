@@ -87,7 +87,7 @@ class Kudos(BotPlugin):
 
         try:
             count = self.shelf.get(username).get('kudos')
-        except (TypeError, NameError):
+        except (TypeError, NameError, AttributeError):
             count = 0
 
         self.send(msg.frm,
