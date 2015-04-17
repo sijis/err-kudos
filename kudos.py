@@ -7,6 +7,9 @@ class Kudos(BotPlugin):
 
     def update_kudos(self, username, count=1):
         ''' Updates db with current count '''
+
+        username = str(username)
+
         try:
             old_count = self.shelf.get(username).get('kudos', 0)
             new_count = old_count + count
@@ -45,7 +48,7 @@ class Kudos(BotPlugin):
     @botcmd(admin_only=True)
     def kudos_delete_entries(self, msg, args):
         ''' Deletes all entries for a user '''
-        username = args
+        username = str(args)
 
         try:
             del self.shelf[username]
@@ -80,11 +83,10 @@ class Kudos(BotPlugin):
         '''
 
         # use either passed username or requester
-        username = args or str(msg.nick)
+        username = str(args) or str(msg.nick)
 
         try:
-            data = self.shelf.get(username)
-            count = data['kudos']
+            count = self.shelf.get(username).get('kudos')
         except (TypeError, NameError):
             count = 0
 
