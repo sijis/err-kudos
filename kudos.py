@@ -1,6 +1,9 @@
 from errbot import BotPlugin, botcmd, re_botcmd
 from datetime import datetime
 import re
+import logging
+
+log = logging.getLogger(name='errbot.plugins.Kudos')
 
 
 class Kudos(BotPlugin):
@@ -16,6 +19,8 @@ class Kudos(BotPlugin):
         except AttributeError:
             self.shelf[username] = {}
             new_count = count
+
+        log.debug('new kudo count is {}'.format(new_count))
 
         self.shelf[username] = {
             'time': datetime.now(),
