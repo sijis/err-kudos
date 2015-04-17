@@ -79,15 +79,8 @@ class Kudos(BotPlugin):
                 !kudos <username>
         '''
 
-        username = args
-
-        if username == '':
-            self.send(msg.frm,
-                      'Username is required.',
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
-            return
+        # use either passed username or requester
+        username = args or str(msg.nick)
 
         try:
             data = self.shelf.get(username)
