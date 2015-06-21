@@ -6,6 +6,10 @@ from errbot import plugin_manager
 class TestKudos(object):
     extra_plugin_dir = '.'
 
+    def test_delete_kudos_list_empty(self, testbot):
+        push_message('!kudos list')
+        assert 'No users' in pop_message()
+
     def test_delete_kudos_user_empty(self, testbot):
         push_message('!kudos delete_entries sijis')
         assert 'User sijis has no entries' in pop_message()
@@ -35,3 +39,11 @@ class TestKudos(object):
     def test_kudos_stats(self, testbot):
         push_message('!kudos sijis')
         assert 'sijis has 1 kudo points' in pop_message()
+
+    def test_kudos_stats_empty(self, testbot):
+        push_message('!kudos sijis_empty')
+        assert 'sijis_empty has 0 kudo points' in pop_message()
+
+    def test_kudos_blank_user(self, testbot):
+        push_message('!kudos')
+        assert 'Username is required.' in pop_message()
