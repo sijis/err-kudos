@@ -93,7 +93,7 @@ class Kudos(BotPlugin):
         '''
         username = str(args)
 
-        if username == '': 
+        if username == '':
             self.send(msg.frm,
                       'Username is required.',
                       message_type=msg.type,
@@ -111,4 +111,3 @@ class Kudos(BotPlugin):
                   message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
-
