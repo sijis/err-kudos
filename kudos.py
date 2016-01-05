@@ -89,7 +89,7 @@ class Kudos(BotPlugin):
     def kudos(self, msg, args):
         ''' A way to see your kudos stats
             Example:
-                !kudos <username>
+                .kudos <username>
         '''
         username = str(args)
 
