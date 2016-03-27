@@ -12,8 +12,8 @@ class Kudos(BotPlugin):
         username = str(username)
 
         try:
-            old_count = self.get(username).get('kudos', 0)
-            new_count = old_count + count
+            current_count = self.get(username).get('kudos', 0)
+            new_count = current_count + count
         except AttributeError:
             self[username] = {}
             new_count = count
@@ -25,11 +25,12 @@ class Kudos(BotPlugin):
             'kudos': new_count,
         }
 
-    @re_botcmd(pattern=r'^[a-z0-9]+\+\+$', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'^[a-z0-9]+\+\+', prefixed=False, flags=re.IGNORECASE)
     def give_kudos(self, msg, match):
         """This gives kudos"""
         if match:
-            username = match.group(0).rstrip('++')
+            line = match.group(0)
+            username = line.split(' ')[0].rstrip('++')
             self.update_kudos(username)
 
             self.send(msg.frm,

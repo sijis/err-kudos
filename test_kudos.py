@@ -18,6 +18,10 @@ class TestKudos(object):
         testbot.push_message('!sijis++')
         assert 'kudos updated for sijis' in testbot.pop_message()
 
+    def test_give_kudos_with_comment(self, testbot):
+        testbot.push_message('!sijis++ This is super great!')
+        assert 'kudos updated for sijis' in testbot.pop_message()
+
     def test_remove_kudos(self, testbot):
         testbot.push_message('!sijis--')
         assert 'Seriously...?' in testbot.pop_message()
