@@ -15,8 +15,22 @@ class TestKudos(object):
         assert 'User sijis has no entries' in testbot.pop_message()
 
     def test_give_kudos(self, testbot):
-        testbot.push_message('!sijis++')
-        assert 'kudos updated for sijis' in testbot.pop_message()
+        usernames = [
+            'sijis',
+            'Sijis',
+            'foo',
+            'bar',
+            '_baz',
+            'Baz_',
+            '_zo_o',
+            '_f-o-o',
+            'si-ji_s',
+        ]
+
+        for username in usernames:
+            testbot.push_message('!{0}++'.format(username))
+            assert 'kudos updated for {0}'.format(username) \
+                in testbot.pop_message()
 
     def test_give_kudos_with_comment(self, testbot):
         testbot.push_message('!sijis++ This is super great!')
