@@ -2,6 +2,18 @@ import kudos
 from errbot.backends.test import testbot
 from errbot import plugin_manager
 
+USERNAMES = [
+    'sijis',
+    'Sijis',
+    'foo',
+    'bar',
+    '_baz',
+    'Baz_',
+    '_zo_o',
+    '_f-o-o',
+    'si-ji_s',
+]
+
 
 class TestKudos(object):
     extra_plugin_dir = '.'
@@ -15,19 +27,8 @@ class TestKudos(object):
         assert 'User sijis has no entries' in testbot.pop_message()
 
     def test_give_kudos(self, testbot):
-        usernames = [
-            'sijis',
-            'Sijis',
-            'foo',
-            'bar',
-            '_baz',
-            'Baz_',
-            '_zo_o',
-            '_f-o-o',
-            'si-ji_s',
-        ]
 
-        for username in usernames:
+        for username in USERNAMES:
             testbot.push_message('!{0}++'.format(username))
             assert 'kudos updated for {0}'.format(username) \
                 in testbot.pop_message()
@@ -37,8 +38,10 @@ class TestKudos(object):
         assert 'kudos updated for sijis' in testbot.pop_message()
 
     def test_remove_kudos(self, testbot):
-        testbot.push_message('!sijis--')
-        assert 'Seriously...?' in testbot.pop_message()
+
+        for username in USERNAMES:
+            testbot.push_message('!{0}--'.format(username))
+            assert 'Seriously...?' in testbot.pop_message()
 
     def test_delete_kudos_user(self, testbot):
         testbot.push_message('!sijis++')
