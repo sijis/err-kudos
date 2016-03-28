@@ -25,7 +25,7 @@ class Kudos(BotPlugin):
             'kudos': new_count,
         }
 
-    @re_botcmd(pattern=r'^[\w-]+\+\+', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'[\w-]+\+\+', prefixed=False, flags=re.IGNORECASE)
     def give_kudos(self, msg, match):
         """This gives kudos"""
         if match:
@@ -39,7 +39,7 @@ class Kudos(BotPlugin):
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
 
-    @re_botcmd(pattern=r'^[\w-]+--', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'[\w-]+--', prefixed=False, flags=re.IGNORECASE)
     def remove_kudos(self, msg, match):
         """This removes a kudo"""
         self.send(msg.frm,
