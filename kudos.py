@@ -39,15 +39,6 @@ class Kudos(BotPlugin):
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
 
-    @re_botcmd(pattern=r'[\w-]+--', prefixed=False, flags=re.IGNORECASE)
-    def remove_kudos(self, msg, match):
-        """This removes a kudo"""
-        self.send(msg.frm,
-                  'Seriously...?',
-                  message_type=msg.type,
-                  in_reply_to=msg,
-                  groupchat_nick_reply=True)
-
     @botcmd(admin_only=True)
     def kudos_delete_entries(self, msg, args):
         """Deletes all entries for a user"""
