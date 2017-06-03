@@ -33,12 +33,26 @@ class Kudos(BotPlugin):
             username = line.split(' ')[0].rstrip('++')
             self.update_kudos(username)
 
-            self.send(msg.frm,
+            t = msg.frm.room if msg.is_group else msg.frm
+            self.send(t,
                       'kudos updated for {}'.format(username),
-                      message_type=msg.type,
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
 
+    @re_botcmd(pattern=r'[\w-]+\-\-', prefixed=False, flags=re.IGNORECASE)
+    def remove_kudos(self, msg, match):
+        """This removes kudos"""
+        if match:
+            line = match.group(0)
+            username = line.split(' ')[0].rstrip('--')
+            self.update_kudos(username, count=-1)
+
+            t = msg.frm.room if msg.is_group else msg.frm
+            self.send(t,
+                      'kudos updated for {}'.format(username),
+                      in_reply_to=msg,
+                      groupchat_nick_reply=True)
+    
     @botcmd(admin_only=True)
     def kudos_delete_entries(self, msg, args):
         """Deletes all entries for a user"""
@@ -50,9 +64,9 @@ class Kudos(BotPlugin):
         except KeyError:
             text = 'User {} has no entries'.format(username)
 
-        self.send(msg.frm,
+        t = msg.frm.room if msg.is_group else msg.frm
+        self.send(t,
                   text,
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
 
@@ -68,9 +82,9 @@ class Kudos(BotPlugin):
         else:
             response = ', '.join(user_list)
 
-        self.send(msg.frm,
+        t = msg.frm.room if msg.is_group else msg.frm
+        self.send(t,
                   response,
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
 
@@ -82,10 +96,10 @@ class Kudos(BotPlugin):
         """
         username = str(args)
 
+        t = msg.frm.room if msg.is_group else msg.frm
         if username == '':
-            self.send(msg.frm,
+            self.send(t,
                       'Username is required.',
-                      message_type=msg.type,
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
             return
@@ -95,8 +109,7 @@ class Kudos(BotPlugin):
         except (TypeError, NameError, AttributeError):
             count = 0
 
-        self.send(msg.frm,
+        self.send(t,
                   '{} has {} kudo points.'.format(username, count),
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
