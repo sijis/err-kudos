@@ -39,6 +39,20 @@ class Kudos(BotPlugin):
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
 
+    @re_botcmd(pattern=r'[\w-]+\-\-', prefixed=False, flags=re.IGNORECASE)
+    def remove_kudos(self, msg, match):
+        """This removes kudos"""
+        if match:
+            line = match.group(0)
+            username = line.split(' ')[0].rstrip('--')
+            self.update_kudos(username, count=-1)
+
+            t = msg.frm.room if msg.is_group else msg.frm
+            self.send(t,
+                      'kudos updated for {}'.format(username),
+                      in_reply_to=msg,
+                      groupchat_nick_reply=True)
+    
     @botcmd(admin_only=True)
     def kudos_delete_entries(self, msg, args):
         """Deletes all entries for a user"""
@@ -69,7 +83,7 @@ class Kudos(BotPlugin):
             response = ', '.join(user_list)
 
         t = msg.frm.room if msg.is_group else msg.frm
-        self.send(msg.frm,
+        self.send(t,
                   response,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
@@ -84,7 +98,7 @@ class Kudos(BotPlugin):
 
         t = msg.frm.room if msg.is_group else msg.frm
         if username == '':
-            self.send(msg.frm,
+            self.send(t,
                       'Username is required.',
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
