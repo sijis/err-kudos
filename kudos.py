@@ -33,9 +33,9 @@ class Kudos(BotPlugin):
             username = line.split(' ')[0].rstrip('++')
             self.update_kudos(username)
 
-            self.send(msg.frm,
+            t = msg.frm.room if msg.is_group else msg.frm
+            self.send(t,
                       'kudos updated for {}'.format(username),
-                      message_type=msg.type,
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
 
@@ -50,9 +50,9 @@ class Kudos(BotPlugin):
         except KeyError:
             text = 'User {} has no entries'.format(username)
 
-        self.send(msg.frm,
+        t = msg.frm.room if msg.is_group else msg.frm
+        self.send(t,
                   text,
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
 
@@ -68,9 +68,9 @@ class Kudos(BotPlugin):
         else:
             response = ', '.join(user_list)
 
+        t = msg.frm.room if msg.is_group else msg.frm
         self.send(msg.frm,
                   response,
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
 
@@ -82,10 +82,10 @@ class Kudos(BotPlugin):
         """
         username = str(args)
 
+        t = msg.frm.room if msg.is_group else msg.frm
         if username == '':
             self.send(msg.frm,
                       'Username is required.',
-                      message_type=msg.type,
                       in_reply_to=msg,
                       groupchat_nick_reply=True)
             return
@@ -95,8 +95,7 @@ class Kudos(BotPlugin):
         except (TypeError, NameError, AttributeError):
             count = 0
 
-        self.send(msg.frm,
+        self.send(t,
                   '{} has {} kudo points.'.format(username, count),
-                  message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
