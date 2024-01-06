@@ -25,7 +25,7 @@ class Kudos(BotPlugin):
             "kudos": new_count,
         }
 
-    @re_botcmd(pattern=r"[\w-]+\+\+", prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r"[\w-]+\+{2}", prefixed=False, flags=re.IGNORECASE)
     def give_kudos(self, msg, match):
         """This gives kudos"""
         if match:
