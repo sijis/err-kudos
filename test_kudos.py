@@ -46,11 +46,9 @@ class TestKudos(object):
     def test_delete_kudos_user(self, testbot):
         for username in USERNAMES:
             testbot.push_message(f"!{username}++")
-            assert f"kudos updated for {username}"in testbot.pop_message()
+            assert f"kudos updated for {username}" in testbot.pop_message()
             testbot.push_message(f"!kudos delete_entries {username}")
-            assert (
-                f"Entries deleted for {username} user" in testbot.pop_message()
-            )
+            assert f"Entries deleted for {username} user" in testbot.pop_message()
 
     def test_delete_kudos_list(self, testbot):
         testbot.push_message("!sijis++")
