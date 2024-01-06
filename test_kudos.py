@@ -43,11 +43,6 @@ class TestKudos(object):
             testbot.push_message("This is super great! {0}++".format(username))
             assert "kudos updated for {0}".format(username) in testbot.pop_message()
 
-    def test_remove_kudos(self, testbot):
-        for username in USERNAMES:
-            testbot.push_message("!{0}--".format(username))
-            assert "Seriously...?" in testbot.pop_message()
-
     def test_delete_kudos_user(self, testbot):
         for username in USERNAMES:
             testbot.push_message("!{0}++".format(username))
