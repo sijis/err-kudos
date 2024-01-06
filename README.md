@@ -1,16 +1,13 @@
-Err plugin - Kudos
-===
+# Errbot plugin - Kudos
 
 Kudos is an errbot plugin that give `kudos` (praise, compliments, props, etc) to
 an individual.
 
-Requirements
----
+## Requirements
 
 No external libraries required.
 
-Installation
----
+## Installation
 
 Once the bot is running, execute the following:
 
@@ -18,8 +15,7 @@ Once the bot is running, execute the following:
 !repos install https://github.com/sijis/err-kudos.git
 ```
 
-Usage
----
+## Usage
 Simple example usage
 
 ```
@@ -28,11 +24,12 @@ $ sijis++
 !kudos list
 ```
 
-Tests
----
+## Tests
 
 Running the test cases.
 
+Install `tox`, then run
+
 ```
-$ py.test test_kudos.py
+$ tox
 ```
