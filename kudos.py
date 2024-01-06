@@ -1,6 +1,7 @@
-from errbot import BotPlugin, botcmd, re_botcmd
-from datetime import datetime
 import re
+from datetime import datetime
+
+from errbot import BotPlugin, botcmd, re_botcmd
 
 
 class Kudos(BotPlugin):
