@@ -9,7 +9,6 @@ class Kudos(BotPlugin):
 
     def update_kudos(self, username, count=1):
         """Updates db with current count"""
-
         username = str(username)
 
         try:
@@ -19,7 +18,7 @@ class Kudos(BotPlugin):
             self[username] = {}
             new_count = count
 
-        self.log.debug("new kudo count is {}".format(new_count))
+        self.log.debug("new kudo count is %d" % new_count)
 
         self[username] = {
             "time": datetime.now(),
@@ -37,7 +36,7 @@ class Kudos(BotPlugin):
             t = msg.frm.room if msg.is_group else msg.frm
             self.send(
                 t,
-                "kudos updated for {}".format(username),
+                f"kudos updated for {username}",
                 in_reply_to=msg,
                 groupchat_nick_reply=True,
             )
@@ -49,9 +48,9 @@ class Kudos(BotPlugin):
 
         try:
             del self[username]
-            text = "Entries deleted for {} user".format(username)
+            text = f"Entries deleted for {username} user"
         except KeyError:
-            text = "User {} has no entries".format(username)
+            text = f"User {username} has no entries"
 
         t = msg.frm.room if msg.is_group else msg.frm
         self.send(t, text, in_reply_to=msg, groupchat_nick_reply=True)
@@ -93,7 +92,7 @@ class Kudos(BotPlugin):
 
         self.send(
             t,
-            "{} has {} kudo points.".format(username, count),
+            f"{username} has {count} kudo points.",
             in_reply_to=msg,
             groupchat_nick_reply=True,
         )
