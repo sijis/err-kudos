@@ -25,31 +25,31 @@ class TestKudos(object):
 
     def test_delete_kudos_user_empty(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("!kudos delete_entries {0}".format(username))
-            assert "User {0} has no entries".format(username) in testbot.pop_message()
+            testbot.push_message(f"!kudos delete_entries {username}")
+            assert f"User {username} has no entries" in testbot.pop_message()
 
     def test_give_kudos(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("!{0}++".format(username))
-            assert "kudos updated for {0}".format(username) in testbot.pop_message()
+            testbot.push_message(f"!{username}++")
+            assert f"kudos updated for {username}" in testbot.pop_message()
 
     def test_give_kudos_with_comment(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("!{0}++ This is super great!".format(username))
-            assert "kudos updated for {0}".format(username) in testbot.pop_message()
+            testbot.push_message(f"!{username}++ This is super great!")
+            assert f"kudos updated for {username}" in testbot.pop_message()
 
     def test_give_kudos_at_end(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("This is super great! {0}++".format(username))
-            assert "kudos updated for {0}".format(username) in testbot.pop_message()
+            testbot.push_message(f"This is super great! {username}++")
+            assert f"kudos updated for {username}" in testbot.pop_message()
 
     def test_delete_kudos_user(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("!{0}++".format(username))
-            assert "kudos updated for {0}".format(username) in testbot.pop_message()
-            testbot.push_message("!kudos delete_entries {0}".format(username))
+            testbot.push_message(f"!{username}++")
+            assert f"kudos updated for {username}"in testbot.pop_message()
+            testbot.push_message(f"!kudos delete_entries {username}")
             assert (
-                "Entries deleted for {0} user".format(username) in testbot.pop_message()
+                f"Entries deleted for {username} user" in testbot.pop_message()
             )
 
     def test_delete_kudos_list(self, testbot):
@@ -62,10 +62,10 @@ class TestKudos(object):
 
     def test_kudos_stats(self, testbot):
         for username in USERNAMES:
-            testbot.push_message("!{0}++".format(username))
+            testbot.push_message(f"!{username}++")
             testbot.pop_message()
-            testbot.push_message("!kudos {0}".format(username))
-            assert "{0} has 1 kudo points".format(username) in testbot.pop_message()
+            testbot.push_message(f"!kudos {username}")
+            assert f"{username} has 1 kudo points" in testbot.pop_message()
 
     def test_kudos_stats_empty(self, testbot):
         testbot.push_message("!kudos sijis_empty")
