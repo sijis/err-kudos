@@ -3,7 +3,7 @@ Name = Kudos
 Module = kudos
 
 [Python]
-Version = 2+
+Version = 3
 
 [Documentation]
 Description = This plugin gives kudos!
